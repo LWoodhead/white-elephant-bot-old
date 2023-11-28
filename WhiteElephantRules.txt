@@ -1,0 +1,17 @@
+1. Any number of players
+2. Each player must select a gift and a virtual "wrapping paper for the gift"
+    2a. Optional price or other limit on gifts
+3. The game starts with all gifts "wrapped"
+4. The game consists of rounds where each player takes a turn consisting of 1 action until all players have taken a turn
+    4a. The initial round should ahve a random order
+    4b. Any following rounds can have a new random order or keep the same original order
+5. Player's may do a unwrap action to unwrap a gift
+    5a. A gift can only be unwrapped if there are unopened gifts left
+    5b. Unwrapping a gift shows all other players what the gift is
+6. Player's may do a steal action to take another players gift 
+    6a. If the stealing has a gift of their own they swap with the other player
+    6b. If they have no gift of their own they simply take the other gift 
+    6c. Gifts may only be stolen a specific # of times generally (3), after this the gift is "locked" and cannot be stolen
+7. Player's may do a pass action to do nothing 
+8. Player's with a "locked" gift are no longer able to take any actions
+9. The game ends when all players have "locked" gifts or when a round passes with all players only having taken pass actions
