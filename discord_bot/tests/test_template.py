@@ -2,6 +2,7 @@ from classes import template
 
 template_a = template.Template(True,True,False,4)
 template_b = template.Template(None,None,None,None)
+template_c = template.Template(True,True,True,-4)
 
 def test_template():
     assert template_a.finalSteal == True
@@ -13,6 +14,8 @@ def test_template():
     assert template_b.supriseGame == False
     assert template_b.randomizeRoundOrder == False
     assert template_b.maxSteals == 3
+    
+    assert template_c.maxSteals == 3
     
     
 def test_get_final_steal():

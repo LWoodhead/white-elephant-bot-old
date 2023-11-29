@@ -8,7 +8,7 @@ class Template:
             supriseGame = False
         if randomizeRoundOrder is None:
             randomizeRoundOrder = False
-        if maxSteals is None:
+        if maxSteals is None or maxSteals < 0:
             maxSteals = 3
             
         self.finalSteal = finalSteal
