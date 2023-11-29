@@ -1,7 +1,7 @@
 from classes import gift
 
-gift_a = gift.Gift(0,"Gark","www.game.com")
-gift_b = gift.Gift(1,None,None)
+gift_a = gift.Gift(0,"Gark","www.game.com","garf.png")
+gift_b = gift.Gift(1,"Game",None,"game.png")
     
 def test_gift():
     assert gift_a.id == 0
@@ -10,9 +10,12 @@ def test_gift():
     assert gift_a.stolenCount == 0
     assert gift_a.isWrapped == True
     assert gift_b.id == 1
-    assert gift_b.title == "Default"
+    assert gift_b.title == "Game"
     assert gift_b.link == None
     
+def test_get_id():
+    assert gift_a.get_id == 0
+        
 def test_open():
     gift_a.isWrapped = True
     gift_a.open()
@@ -50,3 +53,12 @@ def test_set_link():
 def test_get_link():
     gift_a.link = "www.game.com"
     assert gift_a.get_link() == "www.game.com"
+    
+def test_set_wrapping():
+    gift_a.set_wrapping("new image.png")
+    assert gift_a.wrapping == "new image.png"
+    gift_a.wrapping = "garf.png"
+    
+def test_get_wrapping():
+    gift_a.wrapping = "garf.png"
+    assert gift_a.get_wrapping() == "garf.png"
