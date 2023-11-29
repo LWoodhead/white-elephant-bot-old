@@ -14,7 +14,7 @@ def test_gift():
     assert gift_b.link == None
     
 def test_get_id():
-    assert gift_a.get_id == 0
+    assert gift_a.get_id() == 0
         
 def test_open():
     gift_a.isWrapped = True
