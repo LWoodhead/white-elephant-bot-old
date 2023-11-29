@@ -26,3 +26,15 @@ class Gift:
     def release(self) -> int:
         self.stolenCount -= 1
         return self.stolenCount
+    
+    def get_title(self) -> str:
+        return self.title
+    
+    def set_title(self, newTitle: str) -> None:
+        self.title = newTitle
+        
+    def get_link(self) -> str:
+        return self.link
+        
+    def set_link(self, newLink: str) -> None:
+        self.link = newLink

@@ -32,3 +32,21 @@ def test_release():
     gift_a.stolenCount = 3
     gift_a.release()
     assert gift_a.stolenCount == 2
+    
+def test_set_title():
+    gift_a.set_title("Dead Space")
+    assert gift_a.title == "Dead Space"
+    gift_a.title = "Gark"
+    
+def test_get_title():
+    gift_a.title = "Gark"
+    assert gift_a.get_title() == "Gark"
+    
+def test_set_link():
+    gift_a.set_link("www.steam.com/csgo2")
+    assert gift_a.link == "www.steam.com/csgo2"
+    gift_a.link = "www.game.com"
+    
+def test_get_link():
+    gift_a.link = "www.game.com"
+    assert gift_a.get_link() == "www.game.com"
