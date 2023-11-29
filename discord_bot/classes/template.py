@@ -17,17 +17,25 @@ class Template:
         self.maxSteals = maxSteals
         
     def get_final_steal(self) -> bool:
+        return self.finalSteal
         
     def set_final_steal(self, a: bool) -> None:
+        self.finalSteal = a
         
     def get_suprise_game(self) -> bool:
+        return self.supriseGame
         
     def set_suprise_game(self, a: bool) -> None:
+        self.supriseGame = a
         
     def get_randomize_round_order(self) -> bool:
+        return self.randomizeRoundOrder
         
     def set_randomize_round_order(self, a: bool) -> None:
+        self.randomizeRoundOrder = a
         
     def get_max_steals(self) -> int:
+        return self.maxSteals
         
     def set_max_steals(self, a: int) -> None:
+        self.maxSteals = a
