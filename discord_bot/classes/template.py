@@ -16,6 +16,9 @@ class Template:
         self.randomizeRoundOrder = randomizeRoundOrder
         self.maxSteals = maxSteals
         
+    def __str__(self) -> str:
+        return "(final steal: %r, suprise game: %r, randomize round order: %r, max steals: %d)" %(self.finalSteal, self.supriseGame, self.randomizeRoundOrder, self.maxSteals)
+        
     def get_final_steal(self) -> bool:
         return self.finalSteal
         
