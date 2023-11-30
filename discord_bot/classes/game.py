@@ -39,26 +39,35 @@ class Game:
         return self.currentPlayerIndex
     
     def set_current_player_index(self,newIndex: int) -> None:
+        if(newIndex >= self.playerCount or newIndex < 0):
+            newIndex = 0
         self.currentPlayerIndex = newIndex
     
     def get_pass_count(self) -> int:
         return self.passCount
         
     def set_pass_count(self, newPassCount: int) -> None:
+        if(newPassCount < 0):
+            newPassCount = 0
         self.passCount = newPassCount
         
     def get_locked_player_count(self) -> int:
         return self.lockedPlayerCount
     
     def set_locked_player_count(self, newLockedPlayerCount: int) -> int:
+        if(newLockedPlayerCount < 0):
+            newLockedPlayerCount = 0
         self.lockedPlayerCount = newLockedPlayerCount
-        
-    def too_many_passes(self) -> bool:
+    
+    #reset this counter every round
+    #game ends if all players pass in the same round
+    def all_passed_end(self) -> bool:
         if self.passCount >= self.playerCount:
             return True
         return False
     
-    def all_players_locked(self) -> bool:
-        if self.lockedPlayerCount >= self.playerCount:
+    #game ends if all but 1 player is locked
+    def players_locked_end(self) -> bool:
+        if self.lockedPlayerCount >= self.playerCount - 1:
             return True
         return False
