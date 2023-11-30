@@ -38,3 +38,13 @@ def test_set_game_gift():
     player_a.set_game_gift(gift_b)
     assert player_a.gameGift == gift_b
     player_a.gameGift = gift_a
+    
+def test_get_locked():
+    assert player_a.get_locked() == player_a.locked
+    
+def test_set_locked():
+    player_a.set_locked(True)
+    assert player_a.locked == True
+    
+def test_is_locked():
+    assert player_a.is_locked() == player_a.locked

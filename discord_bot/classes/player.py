@@ -1,5 +1,6 @@
 from .gift import Gift
-#gameGift is none until game begins 
+#gameGift is none until game begins
+#add locked value to player rather than gift 
 class Player:
     def __init__(self, id: int, name: str, 
                  originalGift: Gift) -> None:
@@ -7,6 +8,7 @@ class Player:
         self.name = name
         self.originalGift = originalGift
         self.gameGift = None
+        self.locked = False
     
     def get_id(self) -> int:
         return self.id
@@ -28,3 +30,12 @@ class Player:
     
     def set_game_gift(self, newGift: Gift) -> None:
         self.gameGift = newGift
+        
+    def get_locked(self) -> bool:
+        return self.locked
+        
+    def set_locked(self, a: bool) -> None:
+         self.locked = a
+         
+    def is_locked(self) -> bool:
+        return self.locked
