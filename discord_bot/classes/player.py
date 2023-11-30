@@ -10,6 +10,9 @@ class Player:
         self.gameGift = None
         self.locked = False
     
+    def __str__(self) -> str:
+        return "(id: %s, name: %s, orignal gift: %s, game gift: %s, locked: %r)" %(self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
+    
     def get_id(self) -> int:
         return self.id
     
