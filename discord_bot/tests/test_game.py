@@ -4,11 +4,14 @@ from classes import template
 from classes import game
 
 test_player_list = list()
+test_player_list_2 = list()
 
 for id in range(5):
     test_gift = gift.Gift(id, "Game-" + str(id), "link-" + str(id), "picture-" + str(id) + ".png")
     test_player = player.Player(id,"Player-" + str(id),test_gift)
     test_player_list.append(test_player)
+    
+test_player_list_2.append(player.Player(6,"Player-6",gift.Gift(6,"Game-6","link-6","picture-6.png")))
 
 template_a = template.Template(True,True,False,4)
 game_a = game.Game(0,template_a,test_player_list)
@@ -30,6 +33,10 @@ def test_get_config():
     
 def test_get_player_list():
     assert game_a.get_player_list() == test_player_list
+    
+def test_set_player_list():
+    game_a.set_player_list(test_player_list_2)
+    assert game_a.playerList == test_player_list_2
     
 def test_get_current_player_index():
     assert game_a.get_current_player_index() == game_a.currentPlayerIndex

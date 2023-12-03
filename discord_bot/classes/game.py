@@ -35,6 +35,9 @@ class Game:
     def get_player_list(self) -> [Player,Player]:
         return self.playerList
     
+    def set_player_list(self, newPlayerList: [Player, Player]) -> None:
+        self.playerList = newPlayerList
+    
     def get_current_player_index(self) -> int:
         return self.currentPlayerIndex
     
