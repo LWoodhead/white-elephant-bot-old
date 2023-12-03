@@ -71,3 +71,6 @@ class Game:
         if self.lockedPlayerCount >= self.playerCount - 1:
             return True
         return False
+    
+    def total_players(self):
+        return self.playerCount

@@ -71,3 +71,6 @@ def test_players_locked_end():
     assert game_a.players_locked_end() == True
     game_a.lockedPlayerCount = len(test_player_list) - 2
     assert game_a.players_locked_end() == False
+    
+def test_total_players():
+    assert game_a.total_players() == len(test_player_list)
