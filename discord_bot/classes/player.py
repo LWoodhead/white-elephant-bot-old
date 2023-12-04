@@ -14,12 +14,19 @@ class Player:
         return "(id: %s, name: %s, orignal gift: %s, game gift: %s, locked: %r)" %(self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
     
     def __eq__(self, __value: object) -> bool:
+        if(__value == None):
+            return False
         if(self.id != __value.id):
             return False
         if(self.name != __value.name):
             return False
         if(self.originalGift != __value.originalGift):
             return False
+        if(self.gameGift == None or __value.gameGift == None):
+            if(self.gameGift == None and __value.gameGift == None):
+                return True
+            else:
+                return False
         if(self.gameGift != __value.gameGift):
             return False
         if(self.locked != __value.locked):

@@ -13,11 +13,8 @@ class Gift:
         return "(id: %s, title: %s, isWrapped: %r)" %(self.id, self.title, self.isWrapped)
     
     def __eq__(self, __value: object) -> bool:
-        if(self == None or __value == None):
-            if(self == None and __value == None):
-                return True
-            else:
-                return False
+        if(__value == None):
+            return False
         if(self.id != __value.id):
             return False
         if(self.title != __value.title):
