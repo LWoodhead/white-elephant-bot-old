@@ -1,6 +1,7 @@
 from .player import Player
 from .template import Template
 from typing import Final
+import random
 
 class Game:
     
@@ -77,3 +78,6 @@ class Game:
     
     def total_players(self):
         return self.playerCount
+    
+    def shuffle_players(self):
+        random.shuffle(self.playerList)

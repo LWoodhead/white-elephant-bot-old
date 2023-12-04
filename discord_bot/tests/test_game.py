@@ -2,6 +2,7 @@ from classes import gift
 from classes import player
 from classes import template
 from classes import game
+import copy
 
 test_player_list = list()
 test_player_list_2 = list()
@@ -81,3 +82,8 @@ def test_players_locked_end():
     
 def test_total_players():
     assert game_a.total_players() == len(test_player_list)
+    
+def test_shuffle_players():
+    old_list = copy.deepcopy(game_a.playerList)
+    game_a.shuffle_players()
+    assert old_list != game_a.playerList
