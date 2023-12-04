@@ -1,7 +1,6 @@
 from .action import Action
 from .game import Game
 from .actionRecord import ActionRecord
-import random
 import copy
 
 class ShufflePlayersAction(Action):
