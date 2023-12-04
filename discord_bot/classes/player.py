@@ -13,6 +13,19 @@ class Player:
     def __str__(self) -> str:
         return "(id: %s, name: %s, orignal gift: %s, game gift: %s, locked: %r)" %(self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
     
+    def __eq__(self, __value: object) -> bool:
+        if(self.id != __value.id):
+            return False
+        if(self.name != __value.name):
+            return False
+        if(self.originalGift != __value.originalGift):
+            return False
+        if(self.gameGift != __value.gameGift):
+            return False
+        if(self.locked != __value.locked):
+            return False
+        return True
+    
     def get_id(self) -> int:
         return self.id
     

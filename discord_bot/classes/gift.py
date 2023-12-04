@@ -12,6 +12,21 @@ class Gift:
     def __str__(self) -> str:
         return "(id: %s, title: %s, isWrapped: %r)" %(self.id, self.title, self.isWrapped)
     
+    def __eq__(self, __value: object) -> bool:
+        if(self.id != __value.id):
+            return False
+        if(self.title != __value.title):
+            return False
+        if(self.link != __value.link):
+            return False
+        if(self.isWrapped != __value.isWrapped):
+            return False
+        if(self.wrapping != __value.wrapping):
+            return False
+        if(self.stolenCount != __value.stolenCount):
+            return False
+        return True
+    
     def get_id(self) -> int:
         return self.id
     
