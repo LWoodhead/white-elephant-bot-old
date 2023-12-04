@@ -38,11 +38,11 @@ def test_do():
     test_player_list[1].gameGift = test_player_list[0].originalGift
     target_steal_count_1 = test_player_list[0].originalGift.stolenCount
     target_steal_count_2 = test_player_list[1].originalGift.stolenCount
-    stealAction_test.do(game_a,0,test_player_list[0],test_player_list[1])
+    stealAction_test.do(game_a,1,test_player_list[0],test_player_list[1])
     assert test_player_list[0].gameGift == target_gift_1
     assert test_player_list[1].gameGift == target_gift_2
     assert test_player_list[0].gameGift.stolenCount == target_steal_count_1 + 1
-    assert test_player_list[1].gameGift.stolenCount == target_steal_count_2 + 1
+    assert test_player_list[1].gameGift.stolenCount == target_steal_count_2
 
 def test_undo():
     target_gift_1 = test_player_list[0].originalGift
@@ -51,9 +51,9 @@ def test_undo():
     test_player_list[1].gameGift = test_player_list[0].originalGift
     target_steal_count_1 = test_player_list[0].originalGift.stolenCount
     target_steal_count_2 = test_player_list[1].originalGift.stolenCount
-    steal_record = stealAction_test.do(game_a,0,test_player_list[0],test_player_list[1])
+    steal_record = stealAction_test.do(game_a,2,test_player_list[0],test_player_list[1])
     assert test_player_list[0].gameGift.stolenCount  == target_steal_count_1 + 1
-    assert test_player_list[1].gameGift.stolenCount  == target_steal_count_2 + 1
+    assert test_player_list[1].gameGift.stolenCount  == target_steal_count_2
     stealAction_test.undo(game_a,steal_record)
     assert test_player_list[0].gameGift == target_gift_2
     assert test_player_list[1].gameGift == target_gift_1

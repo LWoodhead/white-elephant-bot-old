@@ -8,14 +8,14 @@ class StealAction(Action):
     def __init__(self) -> None:
         super().__init__()
         
-    def do(self, game: Game, actionId: int, stealer: Player, stolenFrom: Player) -> ActionRecord:
-        temp_gift = stealer.gameGift
-        stealer.gameGift = stolenFrom.gameGift
-        stolenFrom.gameGift = temp_gift
-        if(stolenFrom.gameGift != None):
-            stolenFrom.gameGift.stolenCount += 1
-        if(stealer.gameGift != None):
-            stealer.gameGift.stolenCount += 1
+    def do(self, game: Game, actionId: int, stealer: Player, 
+           stolenFrom: Player) -> ActionRecord:
+        stealerGift = stealer.get_game_gift()
+        stolenFromGift = stolenFrom.get_game_gift()
+        stealer.set_game_gift(stolenFromGift)
+        stolenFrom.set_game_gift(stealerGift)
+        if(stolenFromGift != None):
+            stolenFromGift.steal()
         data = { "type" : "steal", "stealer" : stealer, "stolenFrom" : stolenFrom}    
         steal_record = ActionRecord(actionId,data)
         return steal_record
@@ -23,11 +23,9 @@ class StealAction(Action):
     def undo(self, game: Game, record: ActionRecord) -> None:
         stealer = record.data['stealer']
         stolenFrom = record.data['stolenFrom']
-        
-        temp_gift = stealer.gameGift
-        stealer.gameGift = stolenFrom.gameGift
-        stolenFrom.gameGift = temp_gift
-        if(stolenFrom.gameGift != None):
-            stolenFrom.gameGift.stolenCount -= 1
-        if(stealer.gameGift != None):
-            stealer.gameGift.stolenCount -= 1
+        stealerGift = stealer.get_game_gift()
+        stolenFromGift = stolenFrom.get_game_gift()
+        if(stealerGift != None):
+            stealerGift.release()
+        stealer.set_game_gift(stolenFromGift)
+        stolenFrom.set_game_gift(stealerGift)
