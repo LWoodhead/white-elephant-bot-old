@@ -62,3 +62,13 @@ def test_set_wrapping():
 def test_get_wrapping():
     gift_a.wrapping = "garf.png"
     assert gift_a.get_wrapping() == "garf.png"
+    
+def test_get_stolen_count():
+    gift_a.stolenCount = 2
+    assert gift_a.get_stolen_count() == 2
+    
+def test_set_stolen_count():
+    gift_a.set_stolen_count(3)
+    assert gift_a.stolenCount == 3
+    gift_a.set_stolen_count(-1)
+    assert gift_a.stolenCount == 0

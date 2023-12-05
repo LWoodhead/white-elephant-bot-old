@@ -63,3 +63,11 @@ class Gift:
     
     def set_wrapping(self, newWrapping: str) -> None:
         self.wrapping = newWrapping
+    
+    def get_stolen_count(self) -> None:
+        return self.stolenCount
+    
+    def set_stolen_count(self, newStolenCount) -> int:
+        if(newStolenCount < 0):
+            newStolenCount = 0
+        self.stolenCount = newStolenCount
