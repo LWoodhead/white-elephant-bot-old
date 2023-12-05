@@ -2,6 +2,7 @@ from .player import Player
 from .template import Template
 from typing import Final
 import random
+import copy
 
 class Game:
     
@@ -11,8 +12,9 @@ class Game:
         self.playerList = playerList
         self.currentPlayerIndex = 0
         self.passCount = 0
-        self.lockedPlayerCount = 0
+        self.unlockedPlayerCount = len(self.playerList)
         self.playerCount: Final = len(self.playerList)
+        self.unopenedGiftCount = len(self.playerList)
         
     def __str__(self) -> str:
         result = "(id: %d, current player index: %d, pass count: %d, locked player count: %d, player count: %d\n)" %(
@@ -55,14 +57,22 @@ class Game:
             newPassCount = 0
         self.passCount = newPassCount
         
-    def get_locked_player_count(self) -> int:
-        return self.lockedPlayerCount
+    def get_unlocked_player_count(self) -> int:
+        return self.unlockedPlayerCount
     
-    def set_locked_player_count(self, newLockedPlayerCount: int) -> int:
-        if(newLockedPlayerCount < 0):
-            newLockedPlayerCount = 0
-        self.lockedPlayerCount = newLockedPlayerCount
+    def set_unlocked_player_count(self, newUnlockedPlayerCount: int) -> int:
+        if(newUnlockedPlayerCount < 0):
+            newUnlockedPlayerCount = 0
+        self.unlockedPlayerCount = newUnlockedPlayerCount
+        
+    def get_unopened_gift_count(self) -> int:
+        return self.unopenedGiftCount
     
+    def set_unopened_gift_count(self, newUnopenedGiftCount: int) -> None:
+        if(newUnopenedGiftCount < 0):
+            newUnopenedGiftCount = 0
+        self.unopenedGiftCount = newUnopenedGiftCount
+        
     #reset this counter every round
     #game ends if all players pass in the same round
     def all_passed_end(self) -> bool:
@@ -72,19 +82,36 @@ class Game:
     
     #game ends if all but 1 player is locked
     def players_locked_end(self) -> bool:
-        if self.lockedPlayerCount >= self.playerCount - 1:
+        if self.unlockedPlayerCount <= 1 and self.unopenedGiftCount == 0:
             return True
         return False
     
-    def total_players(self):
+    def total_players(self) -> int:
         return self.playerCount
     
-    def shuffle_players(self):
+    #for list of len > 1 will shuffle until the input doesn't match the output
+    def shuffle_players(self) -> None:
+        if(len(self.playerList) <= 1):
+            return
+        old_list = copy.deepcopy(self.playerList)
         random.shuffle(self.playerList)
+        while(old_list == self.playerList):
+            random.shuffle(self.playerList)
         
-    def pass_count_up(self):
+    def pass_count_up(self) -> None:
         self.passCount += 1
-        pass
     
-    def pass_count_down(self):
+    def pass_count_down(self) -> None:
         self.passCount -= 1
+        
+    def unlocked_player_count_up(self) -> None:
+        self.unlockedPlayerCount += 1
+    
+    def unlocked_player_count_down(self) -> None:
+        self.unlockedPlayerCount -= 1
+    
+    def unopened_gift_count_up(self) -> None:
+        self.unopenedGiftCount += 1
+    
+    def unopened_gift_count_down(self) -> None:
+        self.unopenedGiftCount -= 1
