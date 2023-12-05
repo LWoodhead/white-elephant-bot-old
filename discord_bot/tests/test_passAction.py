@@ -19,12 +19,19 @@ def test_pass():
     assert passAction_a == passAction_a
     
 def test_do():
+    previous = game_a.passCount
     passAction_a.do(game_a,0)
     assert game_a.currentPlayerIndex == 1
+    assert game_a.passCount == previous + 1
     passAction_a.do(game_a,1)
     assert game_a.currentPlayerIndex == 2
+    assert game_a.passCount == previous + 2
+    
     
 def test_undo():
+    previous = game_a.passCount
     test_data = passAction_a.do(game_a,1)
+    assert game_a.passCount == previous + 1
     passAction_a.undo(game_a,test_data)
     assert game_a.currentPlayerIndex == test_data.data['lastPlayerIndex']
+    assert game_a.passCount == previous
