@@ -80,7 +80,7 @@ class Game:
             return True
         return False
     
-    #game ends if all but 1 player is locked
+    #game ends if all but 1 player is locked and there are no gifts to open
     def players_locked_end(self) -> bool:
         if self.unlockedPlayerCount <= 1 and self.unopenedGiftCount == 0:
             return True
