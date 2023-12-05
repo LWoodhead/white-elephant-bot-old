@@ -12,10 +12,15 @@ class StealAction(Action):
            stolenFrom: Player) -> ActionRecord:
         stealerGift = stealer.get_game_gift()
         stolenFromGift = stolenFrom.get_game_gift()
+        
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
         if(stolenFromGift != None):
             stolenFromGift.steal()
+            if(stolenFromGift.get_stolen_count() >= game.get_config().get_max_steals()):
+                game.unlocked_player_count_down()
+                stealer.set_locked(True)
+        
         data = { "type" : "steal", "stealer" : stealer, "stolenFrom" : stolenFrom}    
         steal_record = ActionRecord(actionId,data)
         return steal_record
@@ -25,7 +30,11 @@ class StealAction(Action):
         stolenFrom = record.data['stolenFrom']
         stealerGift = stealer.get_game_gift()
         stolenFromGift = stolenFrom.get_game_gift()
-        if(stealerGift != None):
-            stealerGift.release()
+        
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
+        if(stealerGift != None):
+            stealerGift.release()
+            if(stolenFromGift.get_stolen_count() < game.get_config().get_max_steals()):
+                game.unlocked_player_count_up()
+                stealer.set_locked(False)
