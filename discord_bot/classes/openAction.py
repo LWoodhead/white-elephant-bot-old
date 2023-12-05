@@ -13,8 +13,11 @@ class OpenAction(Action):
     def do(self, game: Game, actionId: int, 
            opener: Player, owner: Player) -> ActionRecord:
         target_gift = owner.get_original_gift()
+        
         opener.set_game_gift(target_gift)
         target_gift.open()
+        game.unopened_gift_count_down()
+        
         data = { "type" : "open", "owner" : owner, "opener" : opener}
         open_record = ActionRecord(actionId,data)
         return open_record
@@ -22,6 +25,8 @@ class OpenAction(Action):
     def undo(self, game: Game, record: ActionRecord) -> None:
         opener = record.data['opener']
         owner = record.data['owner']
-        owner.get_original_gift().close()
+        
         opener.set_game_gift(None)
+        owner.get_original_gift().close()
+        game.unopened_gift_count_up()
         

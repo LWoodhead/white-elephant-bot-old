@@ -21,6 +21,7 @@ def test_open():
     assert openAction_test == openAction_test
     
 def test_do():
+    previous_unopened_count = game_a.get_unopened_gift_count()
     test_opener = test_player_list[0]
     test_target = test_player_list[1]
     target_gift = test_player_list[1].originalGift
@@ -29,8 +30,10 @@ def test_do():
     openAction_test.do(game_a,0,test_opener,test_target)
     assert test_opener.gameGift == target_gift
     assert test_opener.gameGift.isWrapped == False
+    assert game_a.unopenedGiftCount == previous_unopened_count - 1
 
 def test_undo():
+    previous_unopened_count = game_a.get_unopened_gift_count()
     test_opener = test_player_list[0]
     test_target = test_player_list[1]
     target_gift = test_player_list[1].originalGift
@@ -39,6 +42,8 @@ def test_undo():
     open_record = openAction_test.do(game_a,1,test_opener,test_target)
     assert test_opener.gameGift == target_gift
     assert test_opener.gameGift.isWrapped == False
+    assert game_a.unopenedGiftCount == previous_unopened_count - 1
     openAction_test.undo(game_a,open_record)
     assert test_opener.gameGift == None
     assert test_target.originalGift.isWrapped == True
+    assert game_a.unopenedGiftCount == previous_unopened_count
