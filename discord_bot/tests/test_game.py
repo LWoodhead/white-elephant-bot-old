@@ -87,3 +87,13 @@ def test_shuffle_players():
     old_list = copy.deepcopy(game_a.playerList)
     game_a.shuffle_players()
     assert old_list != game_a.playerList
+    
+def test_pass_count_up():
+    previous = game_a.get_pass_count()
+    game_a.pass_count_up()
+    assert game_a.get_pass_count() == previous + 1
+
+def test_pass_count_down():
+    previous = game_a.get_pass_count()
+    game_a.pass_count_down()
+    assert game_a.get_pass_count() == previous - 1
