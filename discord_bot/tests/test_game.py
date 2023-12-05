@@ -39,6 +39,7 @@ def test_get_player_list():
 def test_set_player_list():
     game_a.set_player_list(test_player_list_2)
     assert game_a.playerList == test_player_list_2
+    game_a.playerList = test_player_list
     
 def test_get_current_player_index():
     assert game_a.get_current_player_index() == game_a.currentPlayerIndex
@@ -88,6 +89,7 @@ def test_players_locked_end():
     game_a.unlockedPlayerCount = 5
     assert game_a.players_locked_end() == False
     game_a.unlockedPlayerCount = 1
+    game_a.unopenedGiftCount = 2
     assert game_a.players_locked_end() == False
     game_a.unopenedGiftCount = 0
     assert game_a.players_locked_end() == True

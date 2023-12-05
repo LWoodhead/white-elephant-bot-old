@@ -94,7 +94,6 @@ class Game:
         if(len(self.playerList) <= 1):
             return
         old_list = copy.deepcopy(self.playerList)
-        random.shuffle(self.playerList)
         while(old_list == self.playerList):
             random.shuffle(self.playerList)
         
