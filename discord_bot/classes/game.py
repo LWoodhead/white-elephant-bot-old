@@ -81,3 +81,10 @@ class Game:
     
     def shuffle_players(self):
         random.shuffle(self.playerList)
+        
+    def pass_count_up(self):
+        self.passCount += 1
+        pass
+    
+    def pass_count_down(self):
+        self.passCount -= 1
