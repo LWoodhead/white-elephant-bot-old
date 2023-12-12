@@ -114,3 +114,15 @@ class Game:
     
     def unopened_gift_count_down(self) -> None:
         self.unopenedGiftCount -= 1
+        
+    def player_index_up(self) -> None:
+        if(self.currentPlayerIndex >= self.playerCount - 1):
+            self.currentPlayerIndex = 0
+        else:
+            self.currentPlayerIndex += 1
+    
+    def player_index_down(self) -> None:
+        if(self.currentPlayerIndex == 0):
+            self.currentPlayerIndex = self.playerCount - 1
+        else:
+            self.currentPlayerIndex -= 1

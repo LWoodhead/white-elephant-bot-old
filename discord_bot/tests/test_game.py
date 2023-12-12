@@ -45,9 +45,11 @@ def test_get_current_player_index():
     assert game_a.get_current_player_index() == game_a.currentPlayerIndex
     
 def test_set_current_player_index():
+    assert len(test_player_list) == 5
+    game_a.playerList = test_player_list
     game_a.set_current_player_index(4)
     assert game_a.currentPlayerIndex == 4
-    game_a.set_current_player_index(12)
+    game_a.set_current_player_index(5)
     assert game_a.currentPlayerIndex == 0
     game_a.set_current_player_index(-4)
     assert game_a.currentPlayerIndex == 0
@@ -132,4 +134,20 @@ def test_unopened_gift_count_up() -> None:
 def test_unopened_gift_count_down() -> None:
     previous = game_a.unopenedGiftCount
     game_a.unopened_gift_count_down()
-    assert game_a.unopenedGiftCount == previous - 1   
+    assert game_a.unopenedGiftCount == previous - 1
+    
+def test_player_index_up():
+    game_a.currentPlayerIndex = 0
+    game_a.player_index_up()
+    assert game_a.currentPlayerIndex == 1
+    game_a.currentPlayerIndex = game_a.playerCount
+    game_a.player_index_up()
+    assert game_a.currentPlayerIndex == 0
+
+def test_player_index_down():
+    game_a.currentPlayerIndex = 0
+    game_a.player_index_down()
+    assert game_a.currentPlayerIndex == game_a.playerCount - 1 
+    game_a.currentPlayerIndex = game_a.playerCount
+    game_a.player_index_down()
+    assert game_a.currentPlayerIndex == game_a.playerCount - 1
