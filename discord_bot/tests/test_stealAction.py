@@ -89,3 +89,11 @@ def test_player_lock_unlock():
     assert test_player_list[0].gameGift.stolenCount == 1
     assert test_player_list[0].is_locked() == False
     assert game_a.unlockedPlayerCount == previous_unlocked_player_count
+    
+def test_index():
+    assert game_a.playerCount == 5
+    previous = game_a.currentPlayerIndex
+    steal_record = stealAction_test.do(game_a,2,test_player_list[0],test_player_list[1])
+    assert game_a.currentPlayerIndex == previous + 1
+    stealAction_test.undo(game_a,steal_record)
+    assert game_a.currentPlayerIndex == previous

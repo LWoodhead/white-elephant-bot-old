@@ -17,6 +17,7 @@ class OpenAction(Action):
         opener.set_game_gift(target_gift)
         target_gift.open()
         game.unopened_gift_count_down()
+        game.player_index_up()
         
         data = { "type" : "open", "owner" : owner, "opener" : opener}
         open_record = ActionRecord(actionId,data)
@@ -29,4 +30,5 @@ class OpenAction(Action):
         opener.set_game_gift(None)
         owner.get_original_gift().close()
         game.unopened_gift_count_up()
+        game.player_index_down()
         

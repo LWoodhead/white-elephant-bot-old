@@ -33,5 +33,12 @@ def test_undo():
     test_data = passAction_a.do(game_a,1)
     assert game_a.passCount == previous + 1
     passAction_a.undo(game_a,test_data)
-    assert game_a.currentPlayerIndex == test_data.data['lastPlayerIndex']
     assert game_a.passCount == previous
+    
+def test_index():
+    assert game_a.playerCount == 5
+    previous = game_a.currentPlayerIndex
+    test_data = passAction_a.do(game_a,1)
+    assert game_a.currentPlayerIndex == previous + 1
+    passAction_a.undo(game_a,test_data)
+    assert game_a.currentPlayerIndex == previous

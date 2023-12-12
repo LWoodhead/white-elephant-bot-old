@@ -47,3 +47,12 @@ def test_undo():
     assert test_opener.gameGift == None
     assert test_target.originalGift.isWrapped == True
     assert game_a.unopenedGiftCount == previous_unopened_count
+    
+def test_index():
+    previous = game_a.currentPlayerIndex
+    test_opener = test_player_list[0]
+    test_target = test_player_list[1]
+    open_record = openAction_test.do(game_a,0,test_opener,test_target)
+    assert game_a.currentPlayerIndex == previous + 1
+    openAction_test.undo(game_a,open_record)
+    assert game_a.currentPlayerIndex == previous

@@ -13,6 +13,7 @@ class StealAction(Action):
         stealerGift = stealer.get_game_gift()
         stolenFromGift = stolenFrom.get_game_gift()
         
+        game.player_index_up()
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
         if(stolenFromGift != None):
@@ -31,6 +32,7 @@ class StealAction(Action):
         stealerGift = stealer.get_game_gift()
         stolenFromGift = stolenFrom.get_game_gift()
         
+        game.player_index_down()
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
         if(stealerGift != None):
