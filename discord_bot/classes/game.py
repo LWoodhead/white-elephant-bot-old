@@ -57,6 +57,9 @@ class Game:
             newPassCount = 0
         self.passCount = newPassCount
         
+    def get_player_count(self) -> int:
+        return self.playerCount
+        
     def get_unlocked_player_count(self) -> int:
         return self.unlockedPlayerCount
     

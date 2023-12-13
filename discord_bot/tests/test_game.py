@@ -63,6 +63,9 @@ def test_set_pass_count():
     game_a.set_pass_count(-1)
     assert game_a.passCount == 0
 
+def test_get_plaer_count():
+    assert game_a.get_player_count() == game_a.playerCount
+
 def test_get_locked_player_count():
     assert game_a.get_unlocked_player_count() == game_a.unlockedPlayerCount
 
