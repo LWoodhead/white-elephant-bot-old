@@ -71,3 +71,6 @@ class Gift:
         if(newStolenCount < 0):
             newStolenCount = 0
         self.stolenCount = newStolenCount
+        
+    def get_is_wrapped(self) -> bool:
+        return self.isWrapped

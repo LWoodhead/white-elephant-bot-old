@@ -72,3 +72,6 @@ def test_set_stolen_count():
     assert gift_a.stolenCount == 3
     gift_a.set_stolen_count(-1)
     assert gift_a.stolenCount == 0
+    
+def test_get_is_wrapped():
+    assert gift_a.get_is_wrapped() == gift_a.isWrapped
