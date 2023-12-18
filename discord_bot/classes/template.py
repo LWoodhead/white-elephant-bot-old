@@ -16,6 +16,17 @@ class Template:
         self.randomizeRoundOrder = randomizeRoundOrder
         self.maxSteals = maxSteals
         
+    def __eq__(self, __value: object) -> bool:
+        if(self.finalSteal != __value.finalSteal):
+            return False
+        if(self.supriseGame != __value.supriseGame):
+            return False
+        if(self.randomizeRoundOrder != __value.randomizeRoundOrder):
+            return False
+        if(self.maxSteals != __value.maxSteals):
+            return False
+        return True
+        
     def __str__(self) -> str:
         return "(final steal: %r, suprise game: %r, randomize round order: %r, max steals: %d)" %(
             self.finalSteal, self.supriseGame, self.randomizeRoundOrder, self.maxSteals)
