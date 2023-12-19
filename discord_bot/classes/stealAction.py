@@ -32,11 +32,14 @@ class StealAction(Action):
         stealerGift = stealer.get_game_gift()
         stolenFromGift = stolenFrom.get_game_gift()
         
+        #Decrement the index and swap the two gifts back
         game.player_index_down()
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
         if(stealerGift != None):
+            #Release the stolen gift to decrement the stolen counter
             stealerGift.release()
-            if(stolenFromGift.get_stolen_count() < game.get_config().get_max_steals()):
+            #Check to see if this brings the player to an unlocked state
+            if(stealerGift.get_stolen_count() == game.get_config().get_max_steals() - 1):
                 game.unlocked_player_count_up()
                 stealer.set_locked(False)
