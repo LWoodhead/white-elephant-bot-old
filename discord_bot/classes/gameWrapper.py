@@ -13,11 +13,13 @@ class GameWrapper():
     
     def __init__(self, gameId: int, config: Template, playerList: [Player]) -> None:
         
-        self.gameObject = Game(gameId, Template, playerList)
+        self.gameObject = Game(gameId, config, playerList)
+        self.playerList = playerList
+        self.config = config
         
         #Object for creating a newRound 
         newRoundAction = None
-        if(config.get_randomize_round_order == True):
+        if(config.get_randomize_round_order() == True):
             newRoundAction = ShufflePlayersAction()
         else:
             newRoundAction = NoShuffleAction()
@@ -77,7 +79,6 @@ class GameWrapper():
         actionType = action_record.data['type']
         
         match actionType:
-            
             case "pass":
                 self.passAction.undo(self.gameObject,action_record)
             
@@ -109,7 +110,11 @@ class GameWrapper():
             return False
         return True
         
-    def valid_steal(self, stealer: Player, stolenFrom: Player):
+    def valid_steal(self, stealer: Player, stolenFrom: Player) -> bool:
         if(stolenFrom.get_game_gift == None):
             return False
         return True
+    
+    def list_valid_actions(self) -> (bool,bool,bool):
+        # TODO returna tuple with values for (can pass, can open, can steal)
+        pass
