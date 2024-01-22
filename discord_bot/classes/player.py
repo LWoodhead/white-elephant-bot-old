@@ -11,7 +11,8 @@ class Player:
         self.locked = False
     
     def __str__(self) -> str:
-        return "(id: %s, name: %s, orignal gift: %s, game gift: %s, locked: %r)" %(self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
+        return "(id: %s, name: %s, orignal gift: %s, game gift: %s, locked: %r)" %(
+            self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
     
     def __eq__(self, __value: object) -> bool:
         if(__value == None):
