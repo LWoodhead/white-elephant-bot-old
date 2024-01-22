@@ -13,7 +13,7 @@ class TestHelper:
         playerList = list()
 
         for id in range(5):
-            testGift = gift.Gift(id, "Game-" + str(id), "link-" + str(id), "picture-" + str(id) + ".png")
+            testGift = gift.Gift(id, "Gift-" + str(id), "link-" + str(id), "picture-" + str(id) + ".png")
             testPlayer = player.Player(id,"Player-" + str(id),testGift)
             playerList.append(testPlayer)
             
