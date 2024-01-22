@@ -21,8 +21,21 @@ class ShufflePlayersAction(Action):
                 "prevIndex" : prevIndex}
         shuffle_record = ActionRecord(actionId,data)
         return shuffle_record
-
+        
+    #Sort the second list to match the order of the first
+    #Both neeed to be the same size and have matching players
+    @staticmethod   
+    def mirror_list(listToMirror: [], targetList: []) -> []:
+        for i in range(len(listToMirror)):
+            for j in range(len(targetList)):
+                if(listToMirror[i] == targetList[j]):
+                    temp = targetList[i]
+                    targetList[i] = targetList[j]
+                    targetList[j] = temp
+                    continue
+                
     def undo(self, game: Game, record: ActionRecord) -> None:
-        game.set_player_list(record.data['prevPlayerList'])
+        ShufflePlayersAction.mirror_list(record.data['prevPlayerList'], game.get_player_list())
+        # game.set_player_list(record.data['prevPlayerList'])
         game.set_pass_count(record.data['prevPassCount'])
         game.set_current_player_index(record.data['prevIndex'])
