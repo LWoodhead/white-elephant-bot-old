@@ -112,7 +112,6 @@ def test_new_round_with_shuffle():
     test_player_list_random = TestHelper.create_player_list(4)
     previous_player_list_random = copy.deepcopy(test_player_list_random)
     test_wrapper_random = gameWrapper.GameWrapper(1,test_config_random,test_player_list_random)
-    
     previous_action_count_random = test_wrapper_random.actionCounter
     previous_stack_size_random = len(test_wrapper_random.actionStack)
     
@@ -176,13 +175,62 @@ def test_undo_last_action_steal():
     assert test_wrapper.gameObject.unlockedPlayerCount == previous_locked_count
     
 def test_undo_last_action_open():
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    previous_index = test_wrapper.gameObject.currentPlayerIndex
+    previous_unopened_gift_count = test_wrapper.gameObject.unopenedGiftCount
+    target_player = test_player_list[1]
+    acting_player = test_player_list[0]
     
-def test_undo_last_action_round_change():
+    test_wrapper.player_opens(acting_player,target_player)
+    test_wrapper.undo_last_action()
+    assert test_wrapper.gameObject.currentPlayerIndex == previous_index
+    assert test_wrapper.gameObject.unopenedGiftCount == previous_unopened_gift_count
+    assert acting_player.gameGift == None
+    assert target_player.originalGift.isWrapped == True
+    
+def test_undo_last_action_round_change_shuffle():
+    test_config_random = template.Template(False,False,True,3)
+    test_player_list_random = TestHelper.create_player_list(4)
+    previous_player_list_random = copy.deepcopy(test_player_list_random)
+    test_wrapper_random = gameWrapper.GameWrapper(1,test_config_random,test_player_list_random)
+    test_wrapper_random.player_passes()
+    test_wrapper_random.player_passes()
+    previous_action_count_random = test_wrapper_random.actionCounter
+    previous_stack_size_random = len(test_wrapper_random.actionStack)
+    previous_player_index_random = test_wrapper_random.gameObject.currentPlayerIndex
+    previous_pass_count_random = test_wrapper_random.gameObject.passCount
+    
+    previous_unopened_gift_count_random = test_wrapper_random.gameObject.unopenedGiftCount
+    target_player = test_player_list_random[1]
+    acting_player = test_player_list_random[0]
+    
+    assert test_wrapper_random.gameObject.playerList == previous_player_list_random
+    test_wrapper_random.player_opens(acting_player,target_player)
+    test_wrapper_random.new_round()
+    test_wrapper_random.undo_last_action()
+    #Check to see the open action has been undone
+    assert test_wrapper_random.gameObject.currentPlayerIndex == previous_player_index_random
+    assert test_wrapper_random.gameObject.unopenedGiftCount == previous_unopened_gift_count_random
+    assert acting_player.gameGift == None
+    assert target_player.originalGift.isWrapped == True
+    #Check to see the round change has been undone
+    assert test_wrapper_random.gameObject.passCount == previous_pass_count_random
+    assert test_wrapper_random.actionCounter == previous_action_count_random + 2
+    assert len(test_wrapper_random.actionStack) == previous_stack_size_random
+    assert test_wrapper_random.gameObject.playerList == previous_player_list_random
+    
+def test_undo_last_action_round_change_no_shuffle():
+    # TODO Test undo with an open action that is immediatly followed by a no shuffle round change
     pass
 
 def test_currentPlayer():
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    assert test_wrapper.gameObject.playerList[test_wrapper.gameObject.currentPlayerIndex] == test_player_list[0]
+    
 
 def test_valid_pass():
     pass

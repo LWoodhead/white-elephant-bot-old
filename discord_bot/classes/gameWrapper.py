@@ -55,6 +55,8 @@ class GameWrapper():
         
         action_record = self.stealAction.do(self.gameObject,actionId,stealer,stolenFrom)
         self.actionStack.append(action_record)
+        
+    # TODO Add veto action, should skip
     
     #Info Methods
     def is_game_over(self) -> bool:
@@ -100,6 +102,7 @@ class GameWrapper():
         return self.gameObject[self.gameObject.currentPlayerIndex]
     
     #Validation Methods
+    #TODO call these in action methods and add 0 or 1 as return types 
     def valid_pass(self) -> bool:
         if(self.gameObject.get_unopened_gift_count() != 0):
             return False
@@ -111,10 +114,10 @@ class GameWrapper():
         return True
         
     def valid_steal(self, stealer: Player, stolenFrom: Player) -> bool:
-        if(stolenFrom.get_game_gift == None):
+        if(stolenFrom.get_game_gift() == None):
             return False
         return True
     
     def list_valid_actions(self) -> (bool,bool,bool):
-        # TODO returna tuple with values for (can pass, can open, can steal)
+        # TODO return a tuple with values for (can pass, can open, can steal)
         pass
