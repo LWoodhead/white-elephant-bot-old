@@ -103,21 +103,37 @@ class GameWrapper():
     
     #Validation Methods
     #TODO call these in action methods and add 0 or 1 as return types 
-    def valid_pass(self) -> bool:
-        if(self.gameObject.get_unopened_gift_count() != 0):
-            return False
-        return True
-
-    def valid_open(self, opener: Player, owner: Player) -> bool:
-        if(owner.originalGift.get_is_wrapped() == False or opener.get_game_gift() == None):
-            return False
-        return True
-        
-    def valid_steal(self, stealer: Player, stolenFrom: Player) -> bool:
-        if(stolenFrom.get_game_gift() == None):
-            return False
-        return True
     
+    def current_player_is_locked(self) -> bool:
+        currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
+        return currentPlayer.locked
+    
+    def valid_pass(self) -> bool:
+        currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
+        if(currentPlayer.gameGift != None):
+            return True
+        return False
+
+    def valid_open(self) -> bool:
+        currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
+        if(currentPlayer.gameGift == None and self.gameObject.unopenedGiftCount > 0):
+            return True
+        return False
+        
+    def valid_steal(self) -> bool:
+        currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
+        for x in self.gameObject.playerList:
+            if(x != currentPlayer):
+                if(x.gameGift != None and x.locked == False):
+                    return True
+        return False
+    
+    #TODO add any extra actions that can be taken
     def list_valid_actions(self) -> (bool,bool,bool):
-        # TODO return a tuple with values for (can pass, can open, can steal)
-        pass
+        currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
+        if(currentPlayer.locked):
+            return (True,False,False,False)
+        canPass = self.valid_pass()
+        canOpen = self.valid_open()
+        canSteal = self.valid_steal()
+        return(False,canPass,canOpen,canSteal)

@@ -223,7 +223,33 @@ def test_undo_last_action_round_change_shuffle():
     
 def test_undo_last_action_round_change_no_shuffle():
     # TODO Test undo with an open action that is immediatly followed by a no shuffle round change
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    previous_player_list = copy.deepcopy(test_player_list)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    
+    test_wrapper.player_passes()
+    test_wrapper.player_passes()
+    previous_unopened_gift_count = test_wrapper.gameObject.unopenedGiftCount
+    previous_pass_count = test_wrapper.gameObject.passCount
+    previous_player_index = test_wrapper.gameObject.currentPlayerIndex
+    previous_action_count = test_wrapper.actionCounter
+    previous_stack_size = len(test_wrapper.actionStack)
+    target_player = test_player_list[1]
+    acting_player = test_player_list[0]
+    
+    assert test_wrapper.gameObject.playerList == previous_player_list
+    
+    test_wrapper.player_opens(acting_player,target_player)
+    test_wrapper.new_round()
+    test_wrapper.undo_last_action()
+    
+    assert test_wrapper.gameObject.currentPlayerIndex == previous_player_index
+    assert test_wrapper.gameObject.passCount == previous_pass_count
+    assert test_wrapper.actionCounter == previous_action_count + 2
+    assert len(test_wrapper.actionStack) == previous_stack_size
+    assert test_wrapper.gameObject.unopenedGiftCount == previous_unopened_gift_count
+    assert test_wrapper.gameObject.playerList == previous_player_list
 
 def test_currentPlayer():
     test_config = TestHelper.default_config()
@@ -231,15 +257,49 @@ def test_currentPlayer():
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     assert test_wrapper.gameObject.playerList[test_wrapper.gameObject.currentPlayerIndex] == test_player_list[0]
     
+def test_is_locked():
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    #Check player is unlocked
+    assert test_wrapper.gameObject.playerList[test_wrapper.gameObject.currentPlayerIndex].locked == test_wrapper.current_player_is_locked()
+    #Check player is locked
+    test_wrapper.gameObject.playerList[test_wrapper.gameObject.currentPlayerIndex].locked = True
+    assert test_wrapper.gameObject.playerList[test_wrapper.gameObject.currentPlayerIndex].locked == test_wrapper.current_player_is_locked()
 
 def test_valid_pass():
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    #Invalid due to no gift
+    assert test_wrapper.valid_pass() == False
+    #Valid due to non None gift
+    test_wrapper.gameObject.playerList[0].gameGift = test_wrapper.gameObject.playerList[1].originalGift
+    assert test_wrapper.valid_pass() == True
+    
 
 def test_valid_open():
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    #Valid, None game gift
+    assert test_wrapper.valid_open() == True
+    #Invalid, non None gift
+    test_wrapper.gameObject.playerList[0].gameGift = test_wrapper.gameObject.playerList[1].originalGift
+    assert test_wrapper.valid_open() == False
 
 def test_valid_stea():
-    pass
+    test_config = TestHelper.default_config()
+    test_player_list = TestHelper.create_player_list(4)
+    test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
+    #Invalid, no gift to steal
+    assert test_wrapper.valid_steal() == False
+    #Valid, gift to steal
+    test_wrapper.gameObject.playerList[1].gameGift = test_wrapper.gameObject.playerList[0].originalGift
+    assert test_wrapper.valid_steal() == True
+    #Invalid, player locked
+    test_wrapper.gameObject.playerList[1].locked = True
+    assert test_wrapper.valid_steal() == False
 
 def test_list_valid_actions():
     pass
