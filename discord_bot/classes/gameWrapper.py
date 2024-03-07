@@ -11,7 +11,7 @@ from collections import deque
 
 class GameWrapper():
     
-    def __init__(self, gameId: int, config: Template, playerList: [Player]) -> None:
+    def __init__(self, gameId: int, config: Template, playerList: list[Player]) -> None:
         
         self.gameObject = Game(gameId, config, playerList)
         self.playerList = playerList
@@ -129,7 +129,7 @@ class GameWrapper():
         return False
     
     #TODO add any extra actions that can be taken
-    def list_valid_actions(self) -> (bool,bool,bool):
+    def list_valid_actions(self) -> tuple[bool,bool,bool]:
         currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
         if(currentPlayer.locked):
             return (True,False,False,False)
