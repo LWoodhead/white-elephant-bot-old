@@ -9,7 +9,7 @@ class TestHelper:
         pass
     
     
-    def create_player_list(players: int) -> [player.Player]:
+    def create_player_list(players: int) -> list[player.Player]:
         playerList = list()
 
         for id in range(5):
