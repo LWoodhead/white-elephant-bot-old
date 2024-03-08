@@ -7,6 +7,8 @@ WORKDIR /discord_bot
 #Upgrade pip 
 RUN pip install --no-cache-dir --upgrade pip
 
+ENV DISCORD_TOKEN=${DISCORD_TOKEN}
+
 #Copy files into app directory
 COPY discord_bot/classes discord_bot/main.py requirements.txt /discord_bot/
 
