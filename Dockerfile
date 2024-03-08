@@ -7,6 +7,7 @@ WORKDIR /discord_bot
 #Upgrade pip 
 RUN pip install --no-cache-dir --upgrade pip
 
+ARG DISCORD_TOKEN
 ENV DISCORD_TOKEN=${DISCORD_TOKEN}
 
 #Copy files into app directory
