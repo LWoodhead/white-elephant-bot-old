@@ -51,7 +51,7 @@ jobs:
       uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
       with:
         flavor:
-          latest=auto
+          latest=true
         tags:
           type=sha
         images: ${{ secrets.DOCKER_USERNAME }}/test
