@@ -54,7 +54,7 @@ jobs:
           latest=true
         tags:
           type=sha
-        images: ${{ secrets.DOCKER_USERNAME }}/test
+        images: ${{ secrets.DOCKER_USERNAME }}/discord-bot
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
