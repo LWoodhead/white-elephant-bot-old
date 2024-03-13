@@ -16,5 +16,5 @@ COPY discord_bot/classes discord_bot/main.py requirements.txt /discord_bot/
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Run app.py when the container launches
+# Run main.py when the container launches
 CMD ["python", "main.py"]

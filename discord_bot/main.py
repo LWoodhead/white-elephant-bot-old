@@ -19,7 +19,10 @@ async def on_message(message):
         await message.channel.send('Hello!')
         
     if message.content.startswith('$Luke'):
-        await message.channel.send('Age 5')        
+        await message.channel.send('Age 5')
+        
+    if message.content.startswith('$whip'):
+        await message.channel.send('Nay Nay')        
 
 if os.environ.get('DISCORD_TOKEN') != None:
     client.run(os.environ.get('DISCORD_TOKEN'))
