@@ -6,7 +6,6 @@ from .noShuffleAction import NoShuffleAction
 from .passAction import PassAction
 from .openAction import OpenAction
 from .stealAction import StealAction
-from .actionRecord import ActionRecord
 from collections import deque
 
 class GameWrapper():
@@ -19,7 +18,7 @@ class GameWrapper():
         
         #Object for creating a newRound 
         newRoundAction = None
-        if(config.get_randomize_round_order() == True):
+        if(config.get_randomize_round_order()):
             newRoundAction = ShufflePlayersAction()
         else:
             newRoundAction = NoShuffleAction()
@@ -110,13 +109,13 @@ class GameWrapper():
     
     def valid_pass(self) -> bool:
         currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
-        if(currentPlayer.gameGift != None):
+        if(currentPlayer.gameGift is not None):
             return True
         return False
 
     def valid_open(self) -> bool:
         currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
-        if(currentPlayer.gameGift == None and self.gameObject.unopenedGiftCount > 0):
+        if(currentPlayer.gameGift is None and self.gameObject.unopenedGiftCount > 0):
             return True
         return False
         
@@ -124,7 +123,7 @@ class GameWrapper():
         currentPlayer = self.gameObject.playerList[self.gameObject.currentPlayerIndex]
         for x in self.gameObject.playerList:
             if(x != currentPlayer):
-                if(x.gameGift != None and x.locked == False):
+                if(x.gameGift is not None and x.locked is False):
                     return True
         return False
     
