@@ -15,7 +15,7 @@ class Player:
             self.id, self.name, print(self.gameGift), print(self.originalGift), self.locked)
     
     def __eq__(self, __value: object) -> bool:
-        if(__value == None):
+        if(__value is None):
             return False
         if(self.id != __value.id):
             return False
@@ -23,8 +23,8 @@ class Player:
             return False
         if(self.originalGift != __value.originalGift):
             return False
-        if(self.gameGift == None or __value.gameGift == None):
-            if(self.gameGift == None and __value.gameGift == None):
+        if(self.gameGift is None or __value.gameGift is None):
+            if(self.gameGift is None and __value.gameGift is None):
                 return True
             else:
                 return False

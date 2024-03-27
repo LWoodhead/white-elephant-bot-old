@@ -1,7 +1,10 @@
 import discord
 import os
+from classes.identifierGenerator import IdentifierGenerator
+from discord.commands import Option
 
 bot = discord.Bot()
+test = IdentifierGenerator.generateGameIdentifier()
 
 @bot.event
 async def on_ready():
@@ -10,11 +13,16 @@ async def on_ready():
 @bot.slash_command()
 async def create_game(ctx):
     # TODO create a unique id. create a gamewrapper object
-    await ctx.respond("Game Created")
+    game_id = IdentifierGenerator.generateGameIdentifier()
+    await ctx.respond(f"Game {game_id} Created")
     
 @bot.slash_command()
 async def add_player(ctx):
     await ctx.respond("Player Added")
+    
+@bot.slash_command(name='config', description='Chose a default game config')
+async def set_config(ctx: discord.ApplicationContext, config: Option(str, 'config value', required = False, default = '')): # type: ignore
+    await ctx.respond(config)
     
 @bot.slash_command()
 async def ping(ctx: discord.ApplicationContext):

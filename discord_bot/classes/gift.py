@@ -1,5 +1,5 @@
 class Gift:
-    #link has no default and can be None
+    #link has no default, if no link entered create with an empty string
     #wrapping is a filename for wrapping image file 
     def __init__(self, id: int, title: str, link: str, wrapping: str) -> None:
         self.id = id

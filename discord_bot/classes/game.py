@@ -6,7 +6,7 @@ import copy
 
 class Game:
     
-    def __init__(self, id: int, config: Template, playerList: [Player]) -> None:
+    def __init__(self, id: int, config: Template, playerList: list[Player]) -> None:
         self.id = id
         self.config = config
         self.playerList = playerList
@@ -35,10 +35,10 @@ class Game:
     def get_config(self) -> Template:
         return self.config
     
-    def get_player_list(self) -> [Player,Player]:
+    def get_player_list(self) -> list[Player]:
         return self.playerList
     
-    def set_player_list(self, newPlayerList: [Player, Player]) -> None:
+    def set_player_list(self, newPlayerList: list[Player]) -> None:
         self.playerList = newPlayerList
     
     def get_current_player_index(self) -> int:
