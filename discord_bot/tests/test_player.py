@@ -10,7 +10,7 @@ def test_player() -> None:
     assert player_a.id == 0
     assert player_a.name == "Rile"
     assert player_a.originalGift == gift_a
-    assert player_a.gameGift == None
+    assert player_a.gameGift is None
     
 def test_get_id():
     assert player_a.get_id() == player_a.id    
@@ -44,7 +44,7 @@ def test_get_locked():
     
 def test_set_locked():
     player_a.set_locked(True)
-    assert player_a.locked == True
+    assert player_a.locked is True
     
 def test_is_locked():
     assert player_a.is_locked() == player_a.locked

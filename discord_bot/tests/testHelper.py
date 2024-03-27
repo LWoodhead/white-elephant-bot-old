@@ -20,7 +20,7 @@ class TestHelper:
         return playerList
     
     def create_game(gameId: int, players: int, config: template.Template):
-        if(config == None):
+        if(config is None):
             config = TestHelper.default_config()
         playerList = TestHelper.create_player_list()
         newGame = game.Game(0,config,playerList)

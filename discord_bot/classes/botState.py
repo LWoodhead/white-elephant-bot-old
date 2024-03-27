@@ -1,0 +1,2 @@
+class BotState:
+    players = list()

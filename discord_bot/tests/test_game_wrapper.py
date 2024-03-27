@@ -1,7 +1,4 @@
-from classes import gift
-from classes import player
 from classes import template
-from classes import game
 from classes import gameWrapper
 import copy
 
@@ -39,7 +36,7 @@ def test_player_opens():
     assert test_wrapper.gameObject.currentPlayerIndex == previous_index + 1
     assert test_wrapper.gameObject.unopenedGiftCount == previous_unopened_gift_count - 1
     assert acting_player.gameGift == target_player.originalGift
-    assert target_player.originalGift.isWrapped == False
+    assert target_player.originalGift.isWrapped is False
     
 
 def test_player_steals():
@@ -70,17 +67,17 @@ def test_is_game_over():
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     
     #Not over
-    assert test_wrapper.is_game_over() == False
+    assert test_wrapper.is_game_over() is False
     
     #Pass end
     test_wrapper.gameObject.passCount = test_wrapper.gameObject.playerCount
-    assert test_wrapper.is_game_over() == True
+    assert test_wrapper.is_game_over() is True
     test_wrapper.gameObject.passCount = 0
     
     #Locked end
     test_wrapper.gameObject.unlockedPlayerCount = 1
     test_wrapper.gameObject.unopenedGiftCount = 0
-    assert test_wrapper.is_game_over() == True
+    assert test_wrapper.is_game_over() is True
     test_wrapper.gameObject.unlockedPlayerCount = test_wrapper.gameObject.playerCount
     test_wrapper.gameObject.unopenedGiftCount = test_wrapper.gameObject.playerCount
     
@@ -88,7 +85,7 @@ def test_is_game_over():
     test_wrapper.gameObject.passCount = test_wrapper.gameObject.playerCount
     test_wrapper.gameObject.unlockedPlayerCount = 1
     test_wrapper.gameObject.unopenedGiftCount = 0
-    assert test_wrapper.is_game_over() == True
+    assert test_wrapper.is_game_over() is True
 
 def test_new_round_no_shuffle():
     test_config = TestHelper.default_config()
@@ -128,9 +125,9 @@ def test_pre_pass_end_check():
     test_player_list = TestHelper.create_player_list(4)
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     
-    assert test_wrapper.pre_pass_end_check() == False
+    assert test_wrapper.pre_pass_end_check() is False
     test_wrapper.gameObject.passCount = test_wrapper.gameObject.playerCount - 1
-    assert test_wrapper.pre_pass_end_check() == True
+    assert test_wrapper.pre_pass_end_check() is True
 
 def test_undo_last_action_pass():
     #Undo pass
@@ -187,8 +184,8 @@ def test_undo_last_action_open():
     test_wrapper.undo_last_action()
     assert test_wrapper.gameObject.currentPlayerIndex == previous_index
     assert test_wrapper.gameObject.unopenedGiftCount == previous_unopened_gift_count
-    assert acting_player.gameGift == None
-    assert target_player.originalGift.isWrapped == True
+    assert acting_player.gameGift is None
+    assert target_player.originalGift.isWrapped is True
     
 def test_undo_last_action_round_change_shuffle():
     test_config_random = template.Template(False,False,True,3)
@@ -213,8 +210,8 @@ def test_undo_last_action_round_change_shuffle():
     #Check to see the open action has been undone
     assert test_wrapper_random.gameObject.currentPlayerIndex == previous_player_index_random
     assert test_wrapper_random.gameObject.unopenedGiftCount == previous_unopened_gift_count_random
-    assert acting_player.gameGift == None
-    assert target_player.originalGift.isWrapped == True
+    assert acting_player.gameGift is None
+    assert target_player.originalGift.isWrapped is True
     #Check to see the round change has been undone
     assert test_wrapper_random.gameObject.passCount == previous_pass_count_random
     assert test_wrapper_random.actionCounter == previous_action_count_random + 2
@@ -272,10 +269,10 @@ def test_valid_pass():
     test_player_list = TestHelper.create_player_list(4)
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     #Invalid due to no gift
-    assert test_wrapper.valid_pass() == False
+    assert test_wrapper.valid_pass() is False
     #Valid due to non None gift
     test_wrapper.gameObject.playerList[0].gameGift = test_wrapper.gameObject.playerList[1].originalGift
-    assert test_wrapper.valid_pass() == True
+    assert test_wrapper.valid_pass() is True
     
 
 def test_valid_open():
@@ -283,23 +280,23 @@ def test_valid_open():
     test_player_list = TestHelper.create_player_list(4)
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     #Valid, None game gift
-    assert test_wrapper.valid_open() == True
+    assert test_wrapper.valid_open() is True
     #Invalid, non None gift
     test_wrapper.gameObject.playerList[0].gameGift = test_wrapper.gameObject.playerList[1].originalGift
-    assert test_wrapper.valid_open() == False
+    assert test_wrapper.valid_open() is False
 
 def test_valid_stea():
     test_config = TestHelper.default_config()
     test_player_list = TestHelper.create_player_list(4)
     test_wrapper = gameWrapper.GameWrapper(0,test_config,test_player_list)
     #Invalid, no gift to steal
-    assert test_wrapper.valid_steal() == False
+    assert test_wrapper.valid_steal() is False
     #Valid, gift to steal
     test_wrapper.gameObject.playerList[1].gameGift = test_wrapper.gameObject.playerList[0].originalGift
-    assert test_wrapper.valid_steal() == True
+    assert test_wrapper.valid_steal() is True
     #Invalid, player locked
     test_wrapper.gameObject.playerList[1].locked = True
-    assert test_wrapper.valid_steal() == False
+    assert test_wrapper.valid_steal() is False
 
 def test_list_valid_actions():
     pass

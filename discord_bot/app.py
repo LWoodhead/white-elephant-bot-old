@@ -4,7 +4,6 @@ from classes.identifierGenerator import IdentifierGenerator
 from discord.commands import Option
 
 bot = discord.Bot()
-test = IdentifierGenerator.generateGameIdentifier()
 
 @bot.event
 async def on_ready():

@@ -86,20 +86,20 @@ def test_set_unopened_gift_count():
 
 def test_all_passed_end():
     game_a.passCount = len(test_player_list)
-    assert game_a.all_passed_end() == True
+    assert game_a.all_passed_end() is True
     game_a.passCount = len(test_player_list) - 1
-    assert game_a.all_passed_end() == False
+    assert game_a.all_passed_end() is False
     
 def test_players_locked_end():
     game_a.unlockedPlayerCount = 5
-    assert game_a.players_locked_end() == False
+    assert game_a.players_locked_end() is False
     game_a.unlockedPlayerCount = 1
     game_a.unopenedGiftCount = 2
-    assert game_a.players_locked_end() == False
+    assert game_a.players_locked_end() is False
     game_a.unopenedGiftCount = 0
-    assert game_a.players_locked_end() == True
+    assert game_a.players_locked_end() is True
     game_a.unlockedPlayerCount = 1
-    assert game_a.players_locked_end() == True
+    assert game_a.players_locked_end() is True
     
 def test_total_players():
     assert game_a.total_players() == len(test_player_list)

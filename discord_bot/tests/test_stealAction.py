@@ -28,7 +28,7 @@ def test_do():
     test_player_list[1].gameGift = test_player_list[0].originalGift
     stealAction_test.do(game_a,0,test_player_list[0],test_player_list[1])
     assert test_player_list[0].gameGift == target_gift
-    assert test_player_list[1].gameGift == None
+    assert test_player_list[1].gameGift is None
     assert test_player_list[0].gameGift.stolenCount  == target_steal_count + 1
     
     #Test both gifts as not none 
@@ -69,25 +69,25 @@ def test_player_lock_unlock():
     test_player_list[1].gameGift = test_player_list[0].originalGift
     previous_unlocked_player_count = game_a.unlockedPlayerCount
     game_a.config.maxSteals = 3
-    assert test_player_list[0].is_locked() == False
+    assert test_player_list[0].is_locked() is False
     
     #test that do doesn't lock players whose stolen gift doesn't meet the limit
     stealAction_test.do(game_a,3,test_player_list[0],test_player_list[1])
     assert test_player_list[0].gameGift.stolenCount == 1
-    assert test_player_list[0].is_locked() == False
+    assert test_player_list[0].is_locked() is False
     assert game_a.unlockedPlayerCount == previous_unlocked_player_count
     
     #Test that do locks players correctly when the limit is meet and decreases the unlocked player count
     steal_record = stealAction_test.do(game_a,4,test_player_list[0],test_player_list[1])
     assert test_player_list[0].gameGift.stolenCount == 3
-    assert test_player_list[0].is_locked() == True
+    assert test_player_list[0].is_locked() is True
     assert game_a.unlockedPlayerCount == previous_unlocked_player_count - 1
     
     #Test that undo unlocks players correctly if they were locked and increases the unlocked player count
     stealAction_test.undo(game_a, steal_record)
     assert test_player_list[1].gameGift.stolenCount == 2
     assert test_player_list[0].gameGift.stolenCount == 1
-    assert test_player_list[0].is_locked() == False
+    assert test_player_list[0].is_locked() is False
     assert game_a.unlockedPlayerCount == previous_unlocked_player_count
     
 def test_index():

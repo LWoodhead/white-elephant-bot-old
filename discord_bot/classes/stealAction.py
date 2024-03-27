@@ -16,7 +16,7 @@ class StealAction(Action):
         game.player_index_up()
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
-        if(stolenFromGift != None):
+        if(stolenFromGift is not None):
             stolenFromGift.steal()
             if(stolenFromGift.get_stolen_count() >= game.get_config().get_max_steals()):
                 game.unlocked_player_count_down()
@@ -36,7 +36,7 @@ class StealAction(Action):
         game.player_index_down()
         stealer.set_game_gift(stolenFromGift)
         stolenFrom.set_game_gift(stealerGift)
-        if(stealerGift != None):
+        if(stealerGift is not None):
             #Release the stolen gift to decrement the stolen counter
             stealerGift.release()
             #Check to see if this brings the player to an unlocked state

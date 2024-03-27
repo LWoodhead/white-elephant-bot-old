@@ -8,10 +8,10 @@ def test_gift():
     assert gift_a.title == "Gark"
     assert gift_a.link == "www.game.com"
     assert gift_a.stolenCount == 0
-    assert gift_a.isWrapped == True
+    assert gift_a.isWrapped is True
     assert gift_b.id == 1
     assert gift_b.title == "Game"
-    assert gift_b.link == None
+    assert gift_b.link is None
     
 def test_get_id():
     assert gift_a.get_id() == 0
@@ -19,12 +19,12 @@ def test_get_id():
 def test_open():
     gift_a.isWrapped = True
     gift_a.open()
-    assert gift_a.isWrapped == False
+    assert gift_a.isWrapped is False
     
 def test_close():
     gift_a.isWrapped = False
     gift_a.close()
-    assert gift_a.isWrapped == True
+    assert gift_a.isWrapped is True
     
 def test_steal():
     gift_a.stolenCount = 0
